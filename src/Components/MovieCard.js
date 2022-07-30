@@ -20,6 +20,7 @@ const MovieCard = (props) =>{
         display: 'block',
         width: '13vw',
         transitionDuration: '0.3s',
+        cursor:'pointer'
 
     }
 
