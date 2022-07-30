@@ -1,9 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import axios from 'axios'
 
 const style = {
     position: 'absolute',
@@ -21,7 +19,6 @@ const style = {
 
 const MovieModal = (props) => {
 
-    console.log(props.movie)
 
     return (
         <div>
@@ -44,10 +41,10 @@ const MovieModal = (props) => {
                     })}
                     </Typography>
                     <Typography style={{fontSize: '18px'}} color="text.secondary" sx={{mt: 2}} component="div">
-                        <b>Budget:</b> {props.movie.budget}
+                        <b>Budget:</b> {props.movie.budget}$
                     </Typography>
                     <Typography style={{fontSize: '18px'}} color="text.secondary" sx={{mt: 2}} component="div">
-                        <b>Revenue:</b> {props.movie.revenue}
+                        <b>Revenue:</b> {props.movie.revenue}$
                     </Typography>
                 </Box>
             </Modal>

@@ -48,13 +48,13 @@ export const movieSlice = createSlice({
 
 export const getMovieListAsync = createAsyncThunk('getMovieList', async () => {
 
-    const res = await axios.get(`http://localhost:5000/movies`)
+    const res = await axios.get(`${window.location.origin}/movies`)
 
     return res.data
 })
 export const getDetailedMovieAsync = createAsyncThunk('getMovieDetail', async (id) => {
 
-    const res = await axios.get(`http://localhost:5000/movies/details/${id}`)
+    const res = await axios.get(`${window.location.origin}/movies/details/${id}`)
 
     return res.data
 })

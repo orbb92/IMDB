@@ -16,13 +16,21 @@ const MovieCard = (props) =>{
         props.open()
     };
 
+    var cardStyle = {
+        display: 'block',
+        width: '13vw',
+        transitionDuration: '0.3s',
+
+    }
+
     return (<>
 
         <div className='movieCard'>
-        <Card sx={{}} onClick={handleOpen}>
+        <Card style={cardStyle} onClick={handleOpen}>
             <CardMedia
                 component="img"
                 image={props.movie.image}
+
 
             />
             <CardContent sx={{}}>

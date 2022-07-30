@@ -3,7 +3,7 @@ import SearchAutoComplete from "./SearchAutoComplete";
 import '../CSS/MovieApp.css'
 const MovieApp = () => {
 
-
+console.log(window.location.origin)
     return (
 
 

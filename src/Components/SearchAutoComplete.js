@@ -1,7 +1,7 @@
 import {TextField} from "@mui/material";
 import {Autocomplete} from "@mui/material";
 import {useDispatch, useSelector} from 'react-redux'
-import {setSearchedMovie, setMovieList} from "../store/slices/movies";
+import {setSearchedMovie, setMovieList, getMovieListAsync} from "../store/slices/movies";
 import axios from 'axios'
 import React, {useState, useEffect} from 'react'
 import '../CSS/SearchBar.css'
@@ -12,15 +12,16 @@ const SearchAutoComplete = () => {
     const [searchedData, setSearchedData] = useState([])
     const getSearchData = async (e) => {
 
-
-        const res = await axios.get(`http://localhost:5000/movies/${e.target.value}`)
-
-        if (e.target.value === '')
-
+        if (e.target.value === '') {
             setSearchedData([])
-        else {
-            setSearchedData(res.data)
-            dispatch(setMovieList(res.data))
+            dispatch(getMovieListAsync())
+
+        } else {
+            if (e.target.value !== 0) {
+                const res = await axios.get(`${window.location.origin}/movies/${e.target.value}`)
+                setSearchedData(res.data)
+                dispatch(setMovieList(res.data))
+            }
 
         }
     }
@@ -59,6 +60,7 @@ const SearchAutoComplete = () => {
                     onChange={async (e, element) => {
                         console.log(element)
                         dispatch(setSearchedMovie(element))
+                        dispatch(setMovieList([element || {}]))
                     }}
                     renderInput={(params) => {
                         return <TextField {...params} label="Movies"/>
