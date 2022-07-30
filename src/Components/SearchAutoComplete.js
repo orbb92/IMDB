@@ -3,25 +3,31 @@ import {Autocomplete} from "@mui/material";
 import {useDispatch, useSelector} from 'react-redux'
 import {setSearchedMovie, setMovieList, getMovieListAsync} from "../store/slices/movies";
 import axios from 'axios'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect,useMemo} from 'react'
 import '../CSS/SearchBar.css'
 
 const SearchAutoComplete = () => {
     const dispatch = useDispatch()
     const movieList = useSelector(state => state.movies.list)
-    const [searchedData, setSearchedData] = useState([])
-    const getSearchData = async (e) => {
 
-        if (e.target.value === '') {
+    const [searchedData, setSearchedData] = useState([])
+    const [text, setText] = useState({title: ''})
+    const getSearchData = async (e, input, reason) => {
+
+        setText(text=>{
+            text.title=input
+            return text
+        })
+        if (text.title === '') {
             setSearchedData([])
             dispatch(getMovieListAsync())
 
         } else {
-            if (e.target.value !== 0) {
-                const res = await axios.get(`${window.location.origin}/movies/${e.target.value}`)
+
+                const res = await axios.get(`${window.location.origin}/movies/${input}`)
                 setSearchedData(res.data)
                 dispatch(setMovieList(res.data))
-            }
+
 
         }
     }
@@ -55,10 +61,10 @@ const SearchAutoComplete = () => {
                     getOptionLabel={(movie) => {
                         return movie.title
                     }}
-
+                    value={text}
                     onInputChange={debounceSearch}
-                    onChange={async (e, element) => {
-                        console.log(element)
+                    onChange={async (e, element, reason) => {
+
                         dispatch(setSearchedMovie(element))
                         dispatch(setMovieList([element || {}]))
                     }}
