@@ -16,6 +16,6 @@ app.use('/movies',moviesRouter)
 
 
 
-app.listen(PORT,()=>{
+app.listen(process.env.PORT || PORT,()=>{
     console.log('server started on port '+PORT)
 })
